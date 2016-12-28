@@ -32,20 +32,24 @@ body <- dashboardBody(
                 valueBoxOutput("nrofitemswithmetrics", width = NULL),
                 valueBoxOutput("maxaltmetrics", width = NULL),
                 valueBoxOutput("maxtwitter", width = NULL),
-                valueBoxOutput("maxyoutube", width = NULL),
-                box(width = "100%",
-                    height = "50px",
-                    actionButton("reset", label = "Reset selection", 
-                                 icon = icon("refresh"), width = "99%")))),
+                valueBoxOutput("maxmendeley", width = NULL)
+                ),
             fluidRow(
               column(
-                width = 12,
+                width = 10,
                 box(title = "Selected item(s)",
                     status = "warning",
                     solidHeader = TRUE,
-                    width = "100%",
-                    tableOutput("sel"))))
-    ),
+                    width = NULL,
+                    tableOutput("sel"))),
+              column(
+                width = 2,
+                box(width = NULL,
+                    height = "50px",
+                    actionButton("reset", label = "Reset selection", 
+                                 icon = icon("refresh"), width = "99%")))
+            )
+    )),
     
     tabItem("data",
             fluidRow(
@@ -57,8 +61,8 @@ body <- dashboardBody(
                                       height = "600px"))
               )
     )
-    
-  ))
+  )
+)
 
 
 dashboardPage(
@@ -66,6 +70,6 @@ dashboardPage(
                   titleWidth = "700"),
   sidebar,
   body,
-  skin = "yellow"
+  skin = "black"
 )
 

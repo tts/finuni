@@ -42,13 +42,17 @@ function(input, output, session) {
     
     df <- selectedUnivData()
 
-    legend_title <- "University"
+    nr_unis <- length(unique(df$University))
+    
+    c <- ifelse(nr_unis==1, "OpenAccess", "University")
+    
+    legend_title <- c
     
     gg_point <- ggplot(df, 
                        aes_q(x = xc,
                              y = yc,
                              size = df$OA,
-                             color = df$University,
+                             colour = df[[c]],
                              data_id = df$Title,
                              tooltip = df$Title)) + 
       labs(color=legend_title) +
@@ -62,6 +66,8 @@ function(input, output, session) {
             selection_type = "multiple", 
             width_svg = 8, height_svg = 8, 
             hover_css = "fill:yellow", 
+            tooltip_extra_css = tooltip_css,
+            tooltip_offx = 20, tooltip_offy = -10,
             zoom_max = 3)
     })
   
@@ -121,16 +127,6 @@ function(input, output, session) {
     )
   })
   
-  
-  output$maxyoutube <- renderValueBox({
-    valueBox(
-      "Top YouTube score", 
-      ifelse(is.finite(max(selectedUnivData()$YouTube, na.rm = TRUE)), max(selectedUnivData()$YouTube, na.rm = TRUE), "N/A"), 
-      icon = icon("youtube"),
-      color = "purple",
-      href = selectedUnivData()[selectedUnivData()$YouTube %in% max(selectedUnivData()$YouTube, na.rm = TRUE), "href"][1]
-    )
-  })
   
   output$maxmendeley <- renderValueBox({
     valueBox(
