@@ -8,7 +8,7 @@ sidebar <- dashboardSidebar(
                 multiple = FALSE,
                 selected = "All"),
     selectInput("xc", "Horizontal axis", as.list(metrics_select), selected = "Score"),
-    selectInput("yc", "Vertical axis", as.list(metrics_select), selected = "Mendeley"),
+    selectInput("yc", "Vertical axis", as.list(metrics_select), selected = "Authors"),
     HTML("<p>  <a href='http://www.altmetric.com'>Altmetric</a> and <a href='https://confluence.csc.fi/display/VIR/Julkaisukanavatietokannan+REST-rajapinta'>Virta</a><br/>data as of 2016-12-23.<br/>Altmetric API search<br/>based on DOI.<br/>The bigger the circle,<br/>the more OA.</p>")
   ), width = 160
 )
@@ -22,7 +22,7 @@ body <- dashboardBody(
             fluidRow(
               column(
                 width = 8,               
-                box(title = "Click to select items to the table below",
+                box(title = "Click to select items to table below. You can also zoom in/out",
                     status = "warning",
                     solidHeader = TRUE,
                     width = "100%",
@@ -32,8 +32,6 @@ body <- dashboardBody(
                 valueBoxOutput("nrofitemswithmetrics", width = NULL),
                 valueBoxOutput("maxaltmetrics", width = NULL),
                 valueBoxOutput("maxtwitter", width = NULL),
-                valueBoxOutput("maxreddit", width = NULL),
-                valueBoxOutput("maxwikipedia", width = NULL),
                 valueBoxOutput("maxyoutube", width = NULL),
                 box(width = "100%",
                     height = "50px",
@@ -56,7 +54,6 @@ body <- dashboardBody(
                   solidHeader = TRUE,
                   width = 12,
                   DT::dataTableOutput("datatable", 
-                                     # width = "100%",
                                       height = "600px"))
               )
     )
@@ -69,6 +66,6 @@ dashboardPage(
                   titleWidth = "700"),
   sidebar,
   body,
-  skin = "black"
+  skin = "yellow"
 )
 

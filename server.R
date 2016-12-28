@@ -11,12 +11,32 @@ function(input, output, session) {
   })
   
   
+  select_metrics <- reactive({
+    
+    # Are there columns that are all NA?
+    all_na_cols <- apply(selectedUnivData(), 2, function(x) all(is.na(x)));  
+    cols_with_all_na <- names(all_na_cols[all_na_cols>0]);    
+    
+    # Exclude these from the metrics vector so that they cannot be selected
+    new_metrics <- setdiff(metrics_select, cols_with_all_na)
+    new_metrics
+    
+  })
   
   
- 
+  # Update the selection of metrics in the UI if necessary
+  observe({
+    updateSelectInput(session, "xc",
+                      choices = as.list(select_metrics()),
+                      selected = "Score")
+    updateSelectInput(session, "yc",
+                      choices = as.list(select_metrics()),
+                      selected = "Authors")
+  })
+  
+
   output$plot <- renderggiraph({
   
-    
     xc <- as.name(input$xc)
     yc <- as.name(input$yc)
     
@@ -27,16 +47,22 @@ function(input, output, session) {
     gg_point <- ggplot(df, 
                        aes_q(x = xc,
                              y = yc,
-                             stroke = df$OA,
+                             size = df$OA,
                              color = df$University,
                              data_id = df$Title,
                              tooltip = df$Title)) + 
       labs(color=legend_title) +
-      scale_x_log10() +
-      scale_y_log10() +
-      geom_point_interactive(alpha = 0.5, na.rm = TRUE) 
+      scale_x_continuous(trans="log10") +
+      scale_y_continuous(trans="log10") +
+      geom_point_interactive(alpha = 0.5, na.rm = TRUE) +
+      scale_size(guide = "none")
+  
     
-    ggiraph(code = {print(gg_point)}, selection_type = "multiple", width_svg = 8, height_svg = 8)
+    ggiraph(code = {print(gg_point)}, 
+            selection_type = "multiple", 
+            width_svg = 8, height_svg = 8, 
+            hover_css = "fill:yellow", 
+            zoom_max = 3)
     })
   
   
@@ -50,12 +76,13 @@ function(input, output, session) {
     })
   
   
+  
   output$sel <- renderTable({
     
     sel_df <- selectedUnivData()
     
     out <- sel_df[sel_df$Title %in% selected_state(), 
-                  c("Link", "Title", "University", "Journal", "OpenAccess", "Authors", "Score", "Twitter", "Mendeley")]
+                  c("Link", "Title", "University", "Journal", "OpenAccess", "Authors", "Score")]
     
   
     if( nrow(out) < 1 ) return(NULL)
@@ -94,25 +121,6 @@ function(input, output, session) {
     )
   })
   
-  output$maxreddit <- renderValueBox({
-    valueBox(
-      "Top Reddit score", 
-      ifelse(is.finite(max(selectedUnivData()$Reddit, na.rm = TRUE)), max(selectedUnivData()$Reddit, na.rm = TRUE), "N/A"), 
-      icon = icon("reddit"),
-      color = "orange",
-      href = selectedUnivData()[selectedUnivData()$Reddit %in% max(selectedUnivData()$Reddit, na.rm = TRUE), "href"][1]
-    )
-  })
-  
-  output$maxwikipedia <- renderValueBox({
-    valueBox(
-      "Top Wikipedia score", 
-      ifelse(is.finite(max(selectedUnivData()$Wikipedia, na.rm = TRUE)), max(selectedUnivData()$Wikipedia, na.rm = TRUE), "N/A"), 
-      icon = icon("wikipedia-w"),
-      color = "aqua",
-      href = selectedUnivData()[selectedUnivData()$Wikipedia %in% max(selectedUnivData()$Wikipedia, na.rm = TRUE), "href"][1]
-    )
-  })
   
   output$maxyoutube <- renderValueBox({
     valueBox(
