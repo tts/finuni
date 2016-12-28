@@ -46,11 +46,11 @@ body <- dashboardBody(
                     width = "100%",
                     tableOutput("sel"))),
               column(
-                width = 4,
-                box(width = "100%",
+                width = 2,
+                box(width = NULL,
                     height = "50px",
                     actionButton("reset", label = "Reset selection", 
-                                 icon = icon("refresh"), width = "99%")))
+                                 icon = icon("refresh"), width = "100%")))
             )
     )),
     
