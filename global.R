@@ -22,6 +22,6 @@ universities <- sort(universities$x)
 metrics_select <- sort(c("Score", "Mendeley", "Twitter", "Facebook", "CiteULike", "Blogs",
                          "YouTube", "Reddit", "NewsOutlets", "ResearchForums", "Policy", "Weibo", "Wikipedia", "Authors"))
 
-tooltip_css <- "background-color:orange;border-style:dotted;font-style:italic;padding:4px 3px 4px 8px;"
+tooltip_css <- "background-color:WhiteSmoke;width:300px;border-style:dotted;font-style:italic;padding:3px;"
 
 cols <- colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))

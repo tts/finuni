@@ -10,7 +10,7 @@ sidebar <- dashboardSidebar(
     selectInput("xc", "Horizontal axis", as.list(metrics_select), selected = "Score"),
     selectInput("yc", "Vertical axis", as.list(metrics_select), selected = "Authors"),
     HTML("<p>  <a href='http://www.altmetric.com'>Altmetric</a> and <a href='https://confluence.csc.fi/display/VIR/Julkaisukanavatietokannan+REST-rajapinta'>Virta</a><br/>data as of 2016-12-23.<br/>Altmetric API search<br/>based on DOI.<br/>The bigger the circle,<br/>the more OA.</p>")
-  ), width = 160
+  ), width = 180
 )
 
 
@@ -36,15 +36,15 @@ body <- dashboardBody(
                 ),
             fluidRow(
               column(
-                width = 10,
+                width = 8,
                 box(title = "Selected item(s)",
                     status = "warning",
                     solidHeader = TRUE,
-                    width = NULL,
+                    width = "100%",
                     tableOutput("sel"))),
               column(
-                width = 2,
-                box(width = NULL,
+                width = 4,
+                box(width = "100%",
                     height = "50px",
                     actionButton("reset", label = "Reset selection", 
                                  icon = icon("refresh"), width = "99%")))
