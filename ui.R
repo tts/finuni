@@ -36,7 +36,7 @@ body <- dashboardBody(
                 valueBoxOutput("maxaltmetrics", width = NULL),
                 valueBoxOutput("maxtwitter", width = NULL),
                 valueBoxOutput("maxmendeley", width = NULL)
-                ),
+                )),
             fluidRow(
               column(
                 width = 8,
@@ -51,7 +51,6 @@ body <- dashboardBody(
                     height = "50px",
                     actionButton("reset", label = "Reset selection", 
                                  icon = icon("refresh"), width = "100%")))
-            )
     )),
     
     tabItem("data",
