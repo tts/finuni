@@ -8,7 +8,7 @@ sidebar <- dashboardSidebar(
                 multiple = FALSE,
                 selected = "All"),
     selectInput("xc", "Horizontal axis", as.list(metrics_select), selected = "Score"),
-    selectInput("yc", "Vertical axis", as.list(metrics_select), selected = "Authors"),
+    selectInput("yc", "Vertical axis", as.list(metrics_select), selected = "Twitter"),
     HTML("<div class='form-group shiny-input-container'><p><a href='http://www.altmetric.com'>Altmetric</a> and <a href='https://confluence.csc.fi/display/VIR/Julkaisukanavatietokannan+REST-rajapinta'>Virta</a> data dated 2016-12-23. Altmetric API searched by DOI</p></div>"),
     HTML("<div class='form-group shiny-input-container'><p>The bigger the circle, the more open the source (as in Open Access)</p></div>"),
     HTML("<div class='form-group shiny-input-container'><p>R source code of <a href='https://github.com/tts/finunipolicy'>getting data</a>, and <a href='https://github.com/tts/finuni'>building this app</a></p></div>")

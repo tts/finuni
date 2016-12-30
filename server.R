@@ -31,7 +31,7 @@ function(input, output, session) {
                       selected = "Score")
     updateSelectInput(session, "yc",
                       choices = as.list(select_metrics()),
-                      selected = "Authors")
+                      selected = "Twitter")
   })
   
 
