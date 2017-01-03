@@ -40,6 +40,9 @@ function(input, output, session) {
     xc <- as.name(input$xc)
     yc <- as.name(input$yc)
     
+    scx <- as.name(input$scx)
+    scy <- as.name(input$scy)
+    
     df <- selectedUnivData()
 
     nr_unis <- length(unique(df$University))
@@ -56,8 +59,8 @@ function(input, output, session) {
                              data_id = df$Title,
                              tooltip = df$Title)) + 
       labs(color=legend_title) +
-      scale_x_continuous(trans="log10") +
-      scale_y_continuous(trans="log10") +
+      scale_x_continuous(trans=scx) +
+      scale_y_continuous(trans=scy) +
       geom_point_interactive(alpha = 0.5, na.rm = TRUE) +
       scale_size(guide = "none")
   
